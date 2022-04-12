@@ -29,7 +29,7 @@ void main() async {
     widget = const SocialLayout();
   }
 
-  print( ' --------------- uid is :- ${AppData.uid} ---------------');
+  print(' --------------- uid is :- ${AppData.uid} ---------------');
 
   runApp(
     SocialApp(
@@ -45,8 +45,7 @@ class SocialApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit()
-        ..getUserData(),
+      create: (context) => AppCubit()..getUserData(),
       child: ScreenUtilInit(
         designSize: const Size(320, 650),
         splitScreenMode: true,
