@@ -1,8 +1,10 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:social_app/Business/AppCubit/app_cubit.dart';
 import 'package:social_app/Presentaion/Components/custom_appbar.dart';
+import 'package:social_app/Presentaion/Components/custom_loadin.dart';
 import 'package:social_app/Presentaion/Screens/Profile/Components/custom_text_fome_field.dart';
 
 class UpdateProfileScreen extends StatelessWidget {
@@ -20,12 +22,9 @@ class UpdateProfileScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var appCubit = AppCubit.get(context);
-          nameTextEditingController.text =
-              appCubit.userData?.name ?? "Error";
-          bioTextEditingController.text =
-              appCubit.userData?.bio ?? "Error";
-          phoneTextEditingController.text =
-              appCubit.userData?.phone ?? "Error";
+          nameTextEditingController.text ='${appCubit.userData?.name}';
+          bioTextEditingController.text ='${appCubit.userData?.bio}';
+          phoneTextEditingController.text = '${appCubit.userData?.phone}';
           return Scaffold(
             appBar: customeAppBar(
               context: context,

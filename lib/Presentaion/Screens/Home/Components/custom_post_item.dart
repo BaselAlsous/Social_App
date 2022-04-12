@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:social_app/Business/AppCubit/app_cubit.dart';
+import 'package:social_app/Data/Constant/Method/navigation.dart';
 import 'package:social_app/Data/Model/model_post.dart';
 import 'package:social_app/Data/Model/model_user_data.dart';
+import 'package:social_app/Presentaion/Screens/Home/Screens/comment_screen.dart';
 
 class CustomePostItem extends StatelessWidget {
   final ModelUserData modelUserData;
@@ -161,7 +163,9 @@ class CustomePostItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigation.navigationAndBack(context: context, page: const CommentScreen());
+                    },
                     child: Row(
                       children: [
                         CircleAvatar(

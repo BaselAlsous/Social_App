@@ -19,7 +19,9 @@ class SocialLayout extends StatelessWidget {
         ..getUserData()
         ..getAllPost()
         ..getpostUser()
-        ..getAllUser(),
+        ..getAllUser()
+        ..getFollow()
+        ..followDone(),
       child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {},
         builder: (context, state) {

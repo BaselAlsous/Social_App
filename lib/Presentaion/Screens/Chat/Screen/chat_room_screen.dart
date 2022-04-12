@@ -12,33 +12,38 @@ class ChatRoomScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit, AppState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        var appCubit = AppCubit.get(context);
-        var allChatUser = appCubit.allChatUser;
-        return ConditionalBuilder(
-          condition: allChatUser.isNotEmpty,
-          fallback: (context) => Center(
-            child: Text("You don't have any message" , style: Theme.of(context).textTheme.headline5,),
-          ),
-          builder: (context) => Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) => buildUser(
-                context: context,
-                image: allChatUser[index].image ??
-                    'https://img.freepik.com/free-psd/ramadan-3d-rendering-with-moon-ramadan-lights-illustration_159711-2136.jpg?size=626&ext=jpg',
-                name: allChatUser[index].name ?? 'Error',
-                modelUserData: allChatUser[index],
-                appCubit: appCubit,
+    return Builder(
+      builder: (context) {
+        AppCubit.get(context).getAllChatUser();
+        return BlocConsumer<AppCubit, AppState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            var appCubit = AppCubit.get(context);
+            var allChatUser = appCubit.allChatUser;
+            return ConditionalBuilder(
+              condition: allChatUser.isNotEmpty,
+              fallback: (context) => Center(
+                child: Text("You don't have any message" , style: Theme.of(context).textTheme.headline5,),
               ),
-              itemCount: allChatUser.length,
-            ),
-          ),
+              builder: (context) => Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, index) => buildUser(
+                    context: context,
+                    image: allChatUser[index].image ??
+                        'https://img.freepik.com/free-psd/ramadan-3d-rendering-with-moon-ramadan-lights-illustration_159711-2136.jpg?size=626&ext=jpg',
+                    name: allChatUser[index].name ?? 'Error',
+                    modelUserData: allChatUser[index],
+                    appCubit: appCubit,
+                  ),
+                  itemCount: allChatUser.length,
+                ),
+              ),
+            );
+          },
         );
-      },
+      }
     );
   }
 

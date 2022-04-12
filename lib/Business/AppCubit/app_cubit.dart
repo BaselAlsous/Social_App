@@ -9,6 +9,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:social_app/Data/Constant/AppData/app_data.dart';
 import 'package:social_app/Data/Constant/Method/navigation.dart';
 import 'package:social_app/Data/Model/chat_model.dart';
+import 'package:social_app/Data/Model/follow_done_model.dart';
+import 'package:social_app/Data/Model/follower_model.dart';
 import 'package:social_app/Data/Model/model_post.dart';
 import 'package:social_app/Data/Model/model_user_data.dart';
 import 'package:social_app/Presentaion/Screens/Chat/Screen/chat_room_screen.dart';
@@ -50,8 +52,9 @@ class AppCubit extends Cubit<AppState> {
   ];
 
   void toggleNavBar(int index, BuildContext context) {
-    if(index == 1){
-      getAllChatUser();
+
+    if(index == 4){
+      getFollow();
     }
     if (index == 2) {
       Navigation.navigationAndBack(context: context, page: const PostScreen());
@@ -354,6 +357,7 @@ class AppCubit extends Cubit<AppState> {
   List<ModelUserData> allChatUser = [];
 
   void getAllChatUser() {
+  try{
     FirebaseFirestore.instance
         .collection('Chat Room')
         .doc(AppData.uid)
@@ -366,6 +370,9 @@ class AppCubit extends Cubit<AppState> {
       });
       emit(GetUsersChatSccessState());
     });
+  }catch(e){
+    print(e);
+  }
   }
 
   void sendMessamge({
@@ -455,7 +462,7 @@ class AppCubit extends Cubit<AppState> {
         .then((value) {
       emit(SendMessageSccessState());
     }).catchError((error){
-          emit(SendMessageErrorState(error));
+      emit(SendMessageErrorState(error));
     });
   }
 
@@ -583,4 +590,132 @@ class AppCubit extends Cubit<AppState> {
     chatImage = null;
     emit(DeleteChatImageSccessState());
   }
+
+  // todo: Function To Follow Users
+
+  FollowerModel? followerModel;
+  FollowerModel? followingModel;
+
+
+  void followUser({
+    String? name,
+    String? uid,
+    String? image,
+    String? myName,
+    String? myUid,
+    String? myImage,
+    String? userUid,
+  }){
+
+     followingModel = FollowerModel(
+      name: name,
+      image: image,
+      uid:  uid,
+      userUid: userUid,
+    );
+     followerModel = FollowerModel(
+      name: myName,
+      image: myImage,
+      uid:  myUid,
+      userUid: AppData.uid,
+    );
+
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(AppData.uid)
+        .collection('Following')
+        .doc(userUid)
+        .set(followingModel!.toMap())
+        .then((value){
+      emit(SendFollowerSccessState());
+    }).catchError((error){
+      emit(SendFollowerErrorState(error.toString()));
+    });
+
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(userUid)
+        .collection('Followers')
+        .doc(AppData.uid)
+        .set(followerModel!.toMap())
+        .then((value){
+      emit(SendFollowerSccessState());
+    }).catchError((error){
+      emit(SendFollowerErrorState(error.toString()));
+    });
+
+  }
+
+
+  List<FollowerModel> follower = [];
+  List<FollowerModel> following = [];
+
+  void getFollow() {
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(AppData.uid)
+        .collection('Followers')
+        .get().then((value) {
+          follower = [];
+          value.docs.forEach((element) {
+            follower.add(FollowerModel.fromJson(element.data()));
+          });
+      emit(GetFollowerSccessState());
+    }).catchError((error){
+      emit(GetFollowerErrorState(error.toString()));
+    });
+
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(AppData.uid)
+        .collection('Following')
+        .get().then((value) {
+          following = [];
+      value.docs.forEach((element) {
+        following.add(FollowerModel.fromJson(element.data()));
+      });
+      emit(GetFollowerSccessState());
+    }).catchError((error){
+      emit(GetFollowerErrorState(error.toString()));
+    });
+  }
+
+  List<FollowDoneModel> followDoneModel = [];
+
+  void followDone(){
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(AppData.uid)
+        .collection('Following')
+        .get().then((value){
+          value.docs.forEach((element) {
+            followDoneModel.add(FollowDoneModel.fromJson(element.data()));
+          });
+      emit(GetFollowDoneSccessState());
+    }).catchError((error){
+      emit(GetFollowDoneErrorState(error.toString()));
+    });
+  }
+
+  void unFollow({
+    String? userUid,
+
+  }){
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(AppData.uid)
+        .collection('Following')
+        .doc(userUid)
+        .delete();
+    emit(DeleteFollowSccessState());
+
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(userUid)
+        .collection('Followers')
+        .doc(AppData.uid)
+        .delete();
+    emit(DeleteFollowSccessState());
+  }
 }
+

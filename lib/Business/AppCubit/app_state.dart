@@ -27,6 +27,39 @@ class GetPostErrorState extends AppState {
   GetPostErrorState(this.error);
 }
 
+
+//todo : Classes Send Follower
+
+class SendFollowerSccessState extends AppState {}
+
+class SendFollowerErrorState extends AppState {
+  final String error;
+  SendFollowerErrorState(this.error);
+}
+
+
+//todo : Classes GET Follower
+
+class GetFollowerSccessState extends AppState {}
+
+class GetFollowerErrorState extends AppState {
+  final String error;
+  GetFollowerErrorState(this.error);
+}
+
+//todo : Classes GET Follower
+
+class GetFollowDoneSccessState extends AppState {}
+
+class GetFollowDoneErrorState extends AppState {
+  final String error;
+  GetFollowDoneErrorState(this.error);
+}
+
+//todo : Classes Delete Follow
+
+class DeleteFollowSccessState extends AppState {}
+
 // todo: Classes Get All User Post
 
 class GetUserPostLoadingState extends AppState {}
