@@ -43,7 +43,7 @@ class CommentScreen extends StatelessWidget {
                             SizedBox(
                               width: 10.0.w,
                             ),
-                            Container(
+                            SizedBox(
                               width: 250,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,

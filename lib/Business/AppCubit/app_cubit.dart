@@ -12,6 +12,7 @@ import 'package:social_app/Data/Model/chat_model.dart';
 import 'package:social_app/Data/Model/comment_model.dart';
 import 'package:social_app/Data/Model/follow_done_model.dart';
 import 'package:social_app/Data/Model/follower_model.dart';
+import 'package:social_app/Data/Model/like_model.dart';
 import 'package:social_app/Data/Model/model_post.dart';
 import 'package:social_app/Data/Model/model_user_data.dart';
 import 'package:social_app/Presentaion/Screens/Chat/Screen/chat_room_screen.dart';
@@ -320,18 +321,46 @@ class AppCubit extends Cubit<AppState> {
 
   // todo: Like Press
 
-  void likePress({required String? postId}) {
+  void sendLikePress({
+    required String? postId,
+    }) {
+
+      LikeModel likeModel   = LikeModel(
+        like: 'true',
+        uid: AppData.uid,
+      );
+
+
     FirebaseFirestore.instance
-        .collection('Post')
+        .collection('Post Likes')
         .doc(postId)
         .collection('Like')
         .doc(AppData.uid)
-        .set({
-      'like': 'true',
-    }).then((value) {
+        .set(likeModel.toMap()).then((value) {
       emit(LikePostSccessState());
     }).catchError((error) {
       emit(LikePostErrorState());
+    });
+  }
+
+
+  List<LikeModel> allLike = [];
+
+  void getLikePress({
+     required String? postId,
+  }){
+
+    FirebaseFirestore.instance
+    .collection('Post Likes')
+    .doc(postId)
+    .collection('Like')
+    .doc(AppData.uid)
+    .get()
+    .then((value) {
+      allLike.add(LikeModel.fromJson(value.data()!));
+      emit(GetLikePostSccessState());
+    }).catchError((error){
+      emit(GetLikePostErrorState());
     });
   }
 

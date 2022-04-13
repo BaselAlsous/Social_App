@@ -154,6 +154,15 @@ class LikePostErrorState extends AppState {}
 
 class LikePostSccessState extends AppState {}
 
+
+// todo: Classes Like Post
+
+class GetLikePostErrorState extends AppState {}
+
+class GetLikePostSccessState extends AppState {}
+
+
+
 // todo: Classes Get All User
 
 class GetAllUserErrorState extends AppState {}
