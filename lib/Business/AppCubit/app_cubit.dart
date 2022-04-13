@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:social_app/Data/Constant/AppData/app_data.dart';
 import 'package:social_app/Data/Constant/Method/navigation.dart';
 import 'package:social_app/Data/Model/chat_model.dart';
+import 'package:social_app/Data/Model/comment_model.dart';
 import 'package:social_app/Data/Model/follow_done_model.dart';
 import 'package:social_app/Data/Model/follower_model.dart';
 import 'package:social_app/Data/Model/model_post.dart';
@@ -52,8 +53,7 @@ class AppCubit extends Cubit<AppState> {
   ];
 
   void toggleNavBar(int index, BuildContext context) {
-
-    if(index == 4){
+    if (index == 4) {
       getFollow();
     }
     if (index == 2) {
@@ -290,14 +290,13 @@ class AppCubit extends Cubit<AppState> {
         .orderBy('dateTime', descending: true)
         .get()
         .then((value) {
-          posts = [];
-          value.docs.forEach((element) {
-            postsId.add(element.id);
-            posts.add(PostModel.fromJson(element.data()));
-          });
-          emit(GetPostSccessState());
-    })
-        .catchError((error){
+      posts = [];
+      value.docs.forEach((element) {
+        postsId.add(element.id);
+        posts.add(PostModel.fromJson(element.data()));
+      });
+      emit(GetPostSccessState());
+    }).catchError((error) {
       emit(GetPostErrorState(error));
     });
   }
@@ -357,22 +356,22 @@ class AppCubit extends Cubit<AppState> {
   List<ModelUserData> allChatUser = [];
 
   void getAllChatUser() {
-  try{
-    FirebaseFirestore.instance
-        .collection('Chat Room')
-        .doc(AppData.uid)
-        .collection('Chat')
-        .snapshots()
-        .listen((event) {
-      allChatUser = [];
-      event.docs.forEach((element) {
-        allChatUser.add(ModelUserData.fromJson(element.data()));
+    try {
+      FirebaseFirestore.instance
+          .collection('Chat Room')
+          .doc(AppData.uid)
+          .collection('Chat')
+          .snapshots()
+          .listen((event) {
+        allChatUser = [];
+        event.docs.forEach((element) {
+          allChatUser.add(ModelUserData.fromJson(element.data()));
+        });
+        emit(GetUsersChatSccessState());
       });
-      emit(GetUsersChatSccessState());
-    });
-  }catch(e){
-    print(e);
-  }
+    } catch (e) {
+      print(e);
+    }
   }
 
   void sendMessamge({
@@ -391,9 +390,8 @@ class AppCubit extends Cubit<AppState> {
     String? uidSend,
     String? emailSend,
   }) {
-
     ModelUserData userChatSend = ModelUserData(
-      image: imageSend ,
+      image: imageSend,
       name: nameSend,
       bio: bioSend,
       uid: uidSend,
@@ -401,7 +399,7 @@ class AppCubit extends Cubit<AppState> {
     );
 
     ModelUserData userChatReseve = ModelUserData(
-      image: imageReseve ,
+      image: imageReseve,
       name: nameReseve,
       bio: bioReseve,
       uid: uidReseve,
@@ -434,9 +432,10 @@ class AppCubit extends Cubit<AppState> {
         .doc(AppData.uid)
         .collection('Chat')
         .doc(reseveUid)
-        .set(userChatReseve.toMap()).then((value) {
+        .set(userChatReseve.toMap())
+        .then((value) {
       emit(SendMessageSccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(SendMessageErrorState(error));
     });
 
@@ -461,7 +460,7 @@ class AppCubit extends Cubit<AppState> {
         .set(userChatSend.toMap())
         .then((value) {
       emit(SendMessageSccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(SendMessageErrorState(error));
     });
   }
@@ -565,12 +564,12 @@ class AppCubit extends Cubit<AppState> {
             text: text,
             date: date,
             reseveUid: reseveUid,
-            imageReseve: imageReseve ,
+            imageReseve: imageReseve,
             nameReseve: nameReseve,
             bioReseve: bioReseve,
             uidReseve: uidReseve,
             emailReseve: emailReseve,
-            imageSend: imageSend ,
+            imageSend: imageSend,
             nameSend: nameSend,
             bioSend: bioSend,
             uidSend: uidSend,
@@ -596,7 +595,6 @@ class AppCubit extends Cubit<AppState> {
   FollowerModel? followerModel;
   FollowerModel? followingModel;
 
-
   void followUser({
     String? name,
     String? uid,
@@ -605,18 +603,17 @@ class AppCubit extends Cubit<AppState> {
     String? myUid,
     String? myImage,
     String? userUid,
-  }){
-
-     followingModel = FollowerModel(
+  }) {
+    followingModel = FollowerModel(
       name: name,
       image: image,
-      uid:  uid,
+      uid: uid,
       userUid: userUid,
     );
-     followerModel = FollowerModel(
+    followerModel = FollowerModel(
       name: myName,
       image: myImage,
-      uid:  myUid,
+      uid: myUid,
       userUid: AppData.uid,
     );
 
@@ -626,9 +623,9 @@ class AppCubit extends Cubit<AppState> {
         .collection('Following')
         .doc(userUid)
         .set(followingModel!.toMap())
-        .then((value){
+        .then((value) {
       emit(SendFollowerSccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(SendFollowerErrorState(error.toString()));
     });
 
@@ -638,14 +635,12 @@ class AppCubit extends Cubit<AppState> {
         .collection('Followers')
         .doc(AppData.uid)
         .set(followerModel!.toMap())
-        .then((value){
+        .then((value) {
       emit(SendFollowerSccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(SendFollowerErrorState(error.toString()));
     });
-
   }
-
 
   List<FollowerModel> follower = [];
   List<FollowerModel> following = [];
@@ -655,13 +650,14 @@ class AppCubit extends Cubit<AppState> {
         .collection('Users')
         .doc(AppData.uid)
         .collection('Followers')
-        .get().then((value) {
-          follower = [];
-          value.docs.forEach((element) {
-            follower.add(FollowerModel.fromJson(element.data()));
-          });
+        .get()
+        .then((value) {
+      follower = [];
+      value.docs.forEach((element) {
+        follower.add(FollowerModel.fromJson(element.data()));
+      });
       emit(GetFollowerSccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(GetFollowerErrorState(error.toString()));
     });
 
@@ -669,38 +665,39 @@ class AppCubit extends Cubit<AppState> {
         .collection('Users')
         .doc(AppData.uid)
         .collection('Following')
-        .get().then((value) {
-          following = [];
+        .get()
+        .then((value) {
+      following = [];
       value.docs.forEach((element) {
         following.add(FollowerModel.fromJson(element.data()));
       });
       emit(GetFollowerSccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(GetFollowerErrorState(error.toString()));
     });
   }
 
   List<FollowDoneModel> followDoneModel = [];
 
-  void followDone(){
+  void followDone() {
     FirebaseFirestore.instance
         .collection('Users')
         .doc(AppData.uid)
         .collection('Following')
-        .get().then((value){
-          value.docs.forEach((element) {
-            followDoneModel.add(FollowDoneModel.fromJson(element.data()));
-          });
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        followDoneModel.add(FollowDoneModel.fromJson(element.data()));
+      });
       emit(GetFollowDoneSccessState());
-    }).catchError((error){
+    }).catchError((error) {
       emit(GetFollowDoneErrorState(error.toString()));
     });
   }
 
   void unFollow({
     String? userUid,
-
-  }){
+  }) {
     FirebaseFirestore.instance
         .collection('Users')
         .doc(AppData.uid)
@@ -717,5 +714,53 @@ class AppCubit extends Cubit<AppState> {
         .delete();
     emit(DeleteFollowSccessState());
   }
-}
 
+  // todo: Function Commenet Posts
+
+  void commentPost(
+    String? name,
+    String? image,
+    String? text,
+    String? idPost,
+    String? dateTime ,
+  ) {
+    CommentModel commentModel = CommentModel(
+      name: name,
+      image: image,
+      postId: idPost,
+      text: text,
+      dateTime: dateTime,
+    );
+
+    FirebaseFirestore.instance
+        .collection('Post Comments')
+        .doc(idPost)
+        .collection('Comments')
+        .add(commentModel.toMap())
+        .then((value) {
+      emit(SendCommentSccessState());
+    }).catchError((error) {
+      emit(SendCommentErrorState(error));
+    });
+  }
+
+  List<CommentModel> allComment = [];
+
+  void getAllComment({
+    String? idPost,
+  }) {
+    FirebaseFirestore.instance
+        .collection('Post Comments')
+        .doc(idPost)
+        .collection('Comments')
+        .orderBy('dateTime' , descending:true)
+        .snapshots()
+        .listen((event) {
+      allComment = [];
+      event.docs.forEach((element) {
+        allComment.add(CommentModel.fromJson(element.data()));
+      });
+      emit(GetCommentSccessState());
+    });
+  }
+}

@@ -56,6 +56,27 @@ class GetFollowDoneErrorState extends AppState {
   GetFollowDoneErrorState(this.error);
 }
 
+//todo : Classes GET Follower
+
+class SendCommentSccessState extends AppState {}
+
+class SendCommentErrorState extends AppState {
+  final String error;
+  SendCommentErrorState(this.error);
+}
+
+//todo : Classes GET Follower
+
+class GetCommentSccessState extends AppState {}
+
+class GetCommentErrorState extends AppState {
+  final String error;
+  GetCommentErrorState(this.error);
+}
+
+
+
+
 //todo : Classes Delete Follow
 
 class DeleteFollowSccessState extends AppState {}

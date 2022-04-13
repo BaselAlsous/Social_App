@@ -89,11 +89,12 @@ class CustomePostItem extends StatelessWidget {
           SizedBox(
             height: 5.0.h,
           ),
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0.sp),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
+            child: Row(
+              children: [
+                Expanded(
                   child: InkWell(
                     onTap: () {},
                     child: Row(
@@ -117,12 +118,16 @@ class CustomePostItem extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0.sp),
+                Expanded(
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigation.navigationAndBack(
+                          context: context,
+                          page: CommentScreen(
+                            index: index,
+                            appCubit: appCubit,
+                          ));
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -131,22 +136,12 @@ class CustomePostItem extends StatelessWidget {
                           color: Colors.grey,
                           size: 18.0.sp,
                         ),
-                        SizedBox(
-                          width: 5.0.w,
-                        ),
-                        Text(
-                          '0',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 15.0.sp,
-                          ),
-                        ),
                       ],
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 5.0.sp),
@@ -162,7 +157,11 @@ class CustomePostItem extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     Navigation.navigationAndBack(
-                        context: context, page: const CommentScreen());
+                        context: context,
+                        page: CommentScreen(
+                          index: index,
+                          appCubit: appCubit,
+                        ));
                   },
                   child: Row(
                     children: [
