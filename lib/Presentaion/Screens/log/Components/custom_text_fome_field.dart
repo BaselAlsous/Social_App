@@ -16,7 +16,7 @@ class CustomeTextFormField extends StatelessWidget {
     required this.labelText,
     this.suffixIcon,
     this.obscureText = false,
-    required this.prefixIcon,
+    this.prefixIcon,
     required this.validator,
     this.onPressed,
   }) : super(key: key);
@@ -30,7 +30,7 @@ class CustomeTextFormField extends StatelessWidget {
       validator: validator,
       decoration: InputDecoration(
         border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(30.0)),
+          borderRadius: BorderRadius.all(Radius.circular(15.0)),
         ),
         labelText: labelText,
         prefixIcon: Icon(

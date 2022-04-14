@@ -41,43 +41,36 @@ class LoginScreen extends StatelessWidget {
         builder: (context, state) {
           var cubit = LoginCubit.get(context: context);
           return Scaffold(
+            backgroundColor: Colors.grey[50],
             body: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
                   Stack(
                     children: <Widget>[
-                      Container(
-                        height: 260.h,
-                        decoration: BoxDecoration(
-                          color: Colors.indigo[700],
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(50.r),
-                            bottomRight: Radius.circular(50.r),
-                          ),
-                        ),
-                      ),
                       Center(
                         child: Column(
                           children: <Widget>[
-                            SizedBox(height: 80.h),
-                            SizedBox(
-                              height: 100.0.h,
-                              width: 100.0.w,
-                              child: const Image(
-                                image: AssetImage('Asset/Images/alphabet.png'),
-                              ),
-                            ),
-                            SizedBox(height: 10.h),
-                            Text('Social App',
-                                style: GoogleFonts.playfairDisplay(
-                                  color: Colors.white,
-                                  fontSize: 17.sp,
+                            SizedBox(height: 70.h),
+                            Text('Welcome Back!',
+                                style: GoogleFonts.roboto(
+                                  color: Colors.black87,
+                                  fontSize: 18.sp,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.italic,
                                 )),
-                            SizedBox(height: 90.h),
+                            const SizedBox(
+                              height: 5.0,
+                            ),
+                            Text('Please sign in to your acount',
+                                style: GoogleFonts.roboto(
+                                  color: Colors.grey,
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic,
+                                )),
+                            SizedBox(height: 60.h),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 50.sp),
+                              padding: EdgeInsets.symmetric(horizontal: 35.sp),
                               child: Form(
                                 key: keyForm,
                                 child: Column(
@@ -86,7 +79,6 @@ class LoginScreen extends StatelessWidget {
                                       textEditingController: emailController,
                                       labelText: 'Email',
                                       keyboardType: TextInputType.emailAddress,
-                                      prefixIcon: Icons.email,
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'Please Enter Email';
@@ -101,7 +93,6 @@ class LoginScreen extends StatelessWidget {
                                       obscureText: cubit.showPasswprd,
                                       keyboardType:
                                           TextInputType.visiblePassword,
-                                      prefixIcon: Icons.lock,
                                       suffixIcon: cubit.showPasswprd
                                           ? Icons.visibility_off
                                           : Icons.visibility,
@@ -115,7 +106,23 @@ class LoginScreen extends StatelessWidget {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: 30.h),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        TextButton(
+                                            onPressed: () {},
+                                            child: Text(
+                                              'forgit password',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge
+                                                  ?.copyWith(
+                                                    color: Colors.grey[500],
+                                                  ),
+                                            ))
+                                      ],
+                                    ),
+                                    SizedBox(height: 40.h),
                                     ConditionalBuilder(
                                       condition:
                                           state is! LoginUsersLoadingState,
@@ -138,35 +145,89 @@ class LoginScreen extends StatelessWidget {
                                           },
                                           child: Text(
                                             "Login",
-                                            style: GoogleFonts.podkova(
+                                            style: GoogleFonts.roboto(
                                               color: Colors.white,
-                                              fontSize: 22.sp,
+                                              fontSize: 15.sp,
                                               fontStyle: FontStyle.italic,
                                             ),
                                           ),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(25.r),
+                                                BorderRadius.circular(15.r),
                                           ),
-                                          color: Colors.indigo[700],
+                                          color: Colors.blueAccent,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: 10.h),
+                                    ConditionalBuilder(
+                                      condition:
+                                          state is! LoginUsersLoadingState,
+                                      fallback: (context) => const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      builder: (context) => SizedBox(
+                                        height: 60.h,
+                                        width: double.infinity,
+                                        child: MaterialButton(
+                                          onPressed: () {
+                                            if (keyForm.currentState!
+                                                .validate()) {}
+                                          },
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              const CircleAvatar(
+                                                radius: 18.0,
+                                                backgroundImage: NetworkImage(
+                                                    'https://3.bp.blogspot.com/-5VdUbGHflNg/XCI7k-lUJHI/AAAAAAAAmFg/Y2Nbb45ILvsg7lTrkOOAFjonmzzQTpxcgCLcBGAs/s1600/Google-Logo.jpg'),
+                                              ),
+                                              const SizedBox(
+                                                width: 5.0,
+                                              ),
+                                              Text(
+                                                "Sign in with google",
+                                                style: GoogleFonts.roboto(
+                                                  color: Colors.black87,
+                                                  fontSize: 13.sp,
+                                                  fontStyle: FontStyle.italic,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.r),
+                                          ),
+                                          color: Colors.white,
                                         ),
                                       ),
                                     ),
                                     SizedBox(height: 30.h),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigation.navigationAndNotBack(
-                                            context: context,
-                                            page: const RegesterScreen());
-                                      },
-                                      child: Text(
-                                        "don't have an account?",
-                                        style: GoogleFonts.actor(
-                                          color: Colors.black,
-                                          fontSize: 17.sp,
-                                          fontWeight: FontWeight.w400,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "don't have an account ?",
+                                          style: GoogleFonts.actor(
+                                            color: Colors.black,
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
-                                      ),
+                                        const SizedBox(
+                                          width: 5.0,
+                                        ),
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigation.navigationAndNotBack(
+                                                  context: context,
+                                                  page: const RegesterScreen());
+                                            },
+                                            child: const Text('Sign up')),
+                                      ],
                                     ),
                                   ],
                                 ),

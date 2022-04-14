@@ -25,6 +25,7 @@ class RegesterScreen extends StatelessWidget {
     TextEditingController phoneController = TextEditingController();
     TextEditingController nameController = TextEditingController();
     return Scaffold(
+      backgroundColor: Colors.grey[50],
       body: BlocProvider(
         create: (context) => LoginCubit(),
         child: BlocConsumer<LoginCubit, LoginState>(
@@ -34,7 +35,8 @@ class RegesterScreen extends StatelessWidget {
             } else if (state is CreateUsersSccessState) {
               CacheHelper.setData(key: 'uid', value: state.uid).then((value) {
                 AppData.uid = CacheHelper.getdata(key: 'uid');
-                print( ' --------------- uid is :- ${AppData.uid} ---------------');
+                print(
+                    ' --------------- uid is :- ${AppData.uid} ---------------');
                 Navigation.navigationAndNotBack(
                     context: context, page: const SocialLayout());
               });
@@ -47,38 +49,30 @@ class RegesterScreen extends StatelessWidget {
                 children: <Widget>[
                   Stack(
                     children: <Widget>[
-                      Container(
-                        height: 260.h,
-                        decoration: BoxDecoration(
-                          color: Colors.indigo[700],
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(50.r),
-                            bottomRight: Radius.circular(50.r),
-                          ),
-                        ),
-                      ),
                       Center(
                         child: Column(
                           children: <Widget>[
-                            SizedBox(height: 80.h),
-                            SizedBox(
-                              height: 100.0.h,
-                              width: 100.0.h,
-                              child: const Image(
-                                image: AssetImage('Asset/Images/alphabet.png'),
-                              ),
-                            ),
-                            SizedBox(height: 10.h),
-                            Text('Social App',
-                                style: GoogleFonts.playfairDisplay(
-                                  color: Colors.white,
-                                  fontSize: 17.sp,
+                            SizedBox(height: 70.h),
+                            Text('Create New Acount',
+                                style: GoogleFonts.roboto(
+                                  color: Colors.black,
+                                  fontSize: 18.sp,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.italic,
                                 )),
-                            SizedBox(height: 70.h),
+                            const SizedBox(
+                              height: 5.0,
+                            ),
+                            Text('Please fill in the form to continue',
+                                style: GoogleFonts.roboto(
+                                  color: Colors.grey,
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic,
+                                )),
+                            SizedBox(height: 60.h),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 50.sp),
+                              padding: EdgeInsets.symmetric(horizontal: 35.sp),
                               child: Form(
                                 key: keyForm,
                                 child: Column(
@@ -88,7 +82,6 @@ class RegesterScreen extends StatelessWidget {
                                       textEditingController: nameController,
                                       labelText: 'Your Name',
                                       keyboardType: TextInputType.text,
-                                      prefixIcon: Icons.person,
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'Please Enter Name';
@@ -101,7 +94,6 @@ class RegesterScreen extends StatelessWidget {
                                       textEditingController: emailController,
                                       labelText: 'Email',
                                       keyboardType: TextInputType.emailAddress,
-                                      prefixIcon: Icons.email,
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'Please Enter Email';
@@ -114,7 +106,6 @@ class RegesterScreen extends StatelessWidget {
                                       textEditingController: phoneController,
                                       labelText: 'Phone',
                                       keyboardType: TextInputType.phone,
-                                      prefixIcon: Icons.phone,
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'Please Enter Phone';
@@ -129,7 +120,6 @@ class RegesterScreen extends StatelessWidget {
                                       obscureText: cubit.showPasswprd,
                                       keyboardType:
                                           TextInputType.visiblePassword,
-                                      prefixIcon: Icons.lock,
                                       suffixIcon: cubit.showPasswprd
                                           ? Icons.visibility_off
                                           : Icons.visibility,
@@ -143,7 +133,7 @@ class RegesterScreen extends StatelessWidget {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: 30.h),
+                                    SizedBox(height: 40.h),
                                     ConditionalBuilder(
                                       condition:
                                           state is! RegesterUsersLoadingState,
@@ -167,36 +157,45 @@ class RegesterScreen extends StatelessWidget {
                                             }
                                           },
                                           child: Text(
-                                            "Regester",
-                                            style: GoogleFonts.podkova(
+                                            "Sign up",
+                                            style: GoogleFonts.roboto(
                                               color: Colors.white,
-                                              fontSize: 22.sp,
+                                              fontSize: 15.sp,
                                               fontStyle: FontStyle.italic,
                                             ),
                                           ),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(25.r),
+                                                BorderRadius.circular(15.r),
                                           ),
-                                          color: Colors.indigo[700],
+                                          color: Colors.blueAccent,
                                         ),
                                       ),
                                     ),
                                     SizedBox(height: 30.h),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigation.navigationAndNotBack(
-                                            context: context,
-                                            page: const LoginScreen());
-                                      },
-                                      child: Text(
-                                        "Have an account?",
-                                        style: GoogleFonts.actor(
-                                          color: Colors.black,
-                                          fontSize: 17.sp,
-                                          fontWeight: FontWeight.w400,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "don't have an account ?",
+                                          style: GoogleFonts.actor(
+                                            color: Colors.black,
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
-                                      ),
+                                        const SizedBox(
+                                          width: 5.0,
+                                        ),
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigation.navigationAndNotBack(
+                                                  context: context,
+                                                  page: const LoginScreen());
+                                            },
+                                            child: const Text('Sign in')),
+                                      ],
                                     ),
                                   ],
                                 ),

@@ -9,6 +9,7 @@ import 'package:social_app/Data/Constant/AppData/app_data.dart';
 import 'package:social_app/Data/Constant/Theme/app_theme.dart';
 import 'package:social_app/Data/Helper/cache_helper.dart';
 import 'package:social_app/Presentaion/Screens/log/Screens/login_screen.dart';
+import 'package:social_app/Presentaion/Screens/log/Screens/start_page.dart';
 import 'package:social_app/Presentaion/social_layout.dart';
 
 void main() async {
