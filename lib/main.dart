@@ -23,7 +23,7 @@ void main() async {
   AppData.uid = CacheHelper.getdata(key: 'uid');
 
   if (AppData.uid == null) {
-    widget = const LoginScreen();
+    widget = const StartPage();
   } else if (AppData.uid == 'null') {
     widget = const LoginScreen();
   } else {
@@ -54,7 +54,7 @@ class SocialApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           title: 'Social App',
-          home: page,
+          home: const StartPage(),
         ),
       ),
     );

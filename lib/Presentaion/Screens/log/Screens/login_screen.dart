@@ -9,6 +9,7 @@ import 'package:social_app/Business/LoginCubit/login_cubit.dart';
 import 'package:social_app/Data/Constant/AppData/app_data.dart';
 import 'package:social_app/Data/Constant/Method/navigation.dart';
 import 'package:social_app/Data/Helper/cache_helper.dart';
+import 'package:social_app/Presentaion/Components/custom_loadin.dart';
 import 'package:social_app/Presentaion/Components/custom_toast.dart';
 import 'package:social_app/Presentaion/Screens/log/Components/custom_text_fome_field.dart';
 import 'package:social_app/Presentaion/Screens/log/Screens/regester_screen.dart';
@@ -50,11 +51,15 @@ class LoginScreen extends StatelessWidget {
                       Center(
                         child: Column(
                           children: <Widget>[
-                            SizedBox(height: 70.h),
+                            const SizedBox(height: 70),
+                            Image.asset(
+                              'Asset/Images/alphabet.png',
+                              width: 100.0,
+                            ),
                             Text('Welcome Back!',
                                 style: GoogleFonts.roboto(
                                   color: Colors.black87,
-                                  fontSize: 18.sp,
+                                  fontSize: 22,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.italic,
                                 )),
@@ -64,13 +69,14 @@ class LoginScreen extends StatelessWidget {
                             Text('Please sign in to your acount',
                                 style: GoogleFonts.roboto(
                                   color: Colors.grey,
-                                  fontSize: 13.sp,
+                                  fontSize: 13,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.italic,
                                 )),
-                            SizedBox(height: 60.h),
+                            const SizedBox(height: 60),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 35.sp),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 35),
                               child: Form(
                                 key: keyForm,
                                 child: Column(
@@ -86,7 +92,7 @@ class LoginScreen extends StatelessWidget {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: 10.h),
+                                    const SizedBox(height: 10),
                                     CustomeTextFormField(
                                       textEditingController: passwordController,
                                       labelText: 'Password',
@@ -122,15 +128,15 @@ class LoginScreen extends StatelessWidget {
                                             ))
                                       ],
                                     ),
-                                    SizedBox(height: 40.h),
+                                    const SizedBox(height: 20),
                                     ConditionalBuilder(
                                       condition:
                                           state is! LoginUsersLoadingState,
-                                      fallback: (context) => const Center(
-                                        child: CircularProgressIndicator(),
+                                      fallback: (context) => Center(
+                                        child: CustomLoading.spinkit,
                                       ),
                                       builder: (context) => SizedBox(
-                                        height: 60.h,
+                                        height: 60,
                                         width: double.infinity,
                                         child: MaterialButton(
                                           onPressed: () {
@@ -147,7 +153,7 @@ class LoginScreen extends StatelessWidget {
                                             "Login",
                                             style: GoogleFonts.roboto(
                                               color: Colors.white,
-                                              fontSize: 15.sp,
+                                              fontSize: 16,
                                               fontStyle: FontStyle.italic,
                                             ),
                                           ),
@@ -159,15 +165,14 @@ class LoginScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 10.h),
+                                    const SizedBox(height: 10),
                                     ConditionalBuilder(
-                                      condition:
-                                          state is! LoginUsersLoadingState,
-                                      fallback: (context) => const Center(
-                                        child: CircularProgressIndicator(),
+                                      condition: true,
+                                      fallback: (context) => Center(
+                                        child: CustomLoading.spinkit,
                                       ),
                                       builder: (context) => SizedBox(
-                                        height: 60.h,
+                                        height: 60,
                                         width: double.infinity,
                                         child: MaterialButton(
                                           onPressed: () {
@@ -190,7 +195,7 @@ class LoginScreen extends StatelessWidget {
                                                 "Sign in with google",
                                                 style: GoogleFonts.roboto(
                                                   color: Colors.black87,
-                                                  fontSize: 13.sp,
+                                                  fontSize: 16,
                                                   fontStyle: FontStyle.italic,
                                                 ),
                                               ),
@@ -204,7 +209,7 @@ class LoginScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 30.h),
+                                    const SizedBox(height: 20),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -213,7 +218,7 @@ class LoginScreen extends StatelessWidget {
                                           "don't have an account ?",
                                           style: GoogleFonts.actor(
                                             color: Colors.black,
-                                            fontSize: 12.sp,
+                                            fontSize: 15,
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),

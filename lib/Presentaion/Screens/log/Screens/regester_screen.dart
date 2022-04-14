@@ -3,7 +3,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:social_app/Business/LoginCubit/login_cubit.dart';
 import 'package:social_app/Data/Constant/AppData/app_data.dart';
@@ -52,11 +51,15 @@ class RegesterScreen extends StatelessWidget {
                       Center(
                         child: Column(
                           children: <Widget>[
-                            SizedBox(height: 70.h),
-                            Text('Create New Acount',
+                            const SizedBox(height: 70),
+                            Image.asset(
+                              'Asset/Images/alphabet.png',
+                              width: 100.0,
+                            ),
+                            Text('Create New Account',
                                 style: GoogleFonts.roboto(
                                   color: Colors.black,
-                                  fontSize: 18.sp,
+                                  fontSize: 22,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.italic,
                                 )),
@@ -66,13 +69,14 @@ class RegesterScreen extends StatelessWidget {
                             Text('Please fill in the form to continue',
                                 style: GoogleFonts.roboto(
                                   color: Colors.grey,
-                                  fontSize: 13.sp,
+                                  fontSize: 13,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FontStyle.italic,
                                 )),
-                            SizedBox(height: 60.h),
+                            const SizedBox(height: 60),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 35.sp),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 35),
                               child: Form(
                                 key: keyForm,
                                 child: Column(
@@ -89,7 +93,7 @@ class RegesterScreen extends StatelessWidget {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: 10.h),
+                                    const SizedBox(height: 10),
                                     CustomeTextFormField(
                                       textEditingController: emailController,
                                       labelText: 'Email',
@@ -101,7 +105,7 @@ class RegesterScreen extends StatelessWidget {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: 10.h),
+                                    const SizedBox(height: 10),
                                     CustomeTextFormField(
                                       textEditingController: phoneController,
                                       labelText: 'Phone',
@@ -113,7 +117,7 @@ class RegesterScreen extends StatelessWidget {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: 10.h),
+                                    const SizedBox(height: 10),
                                     CustomeTextFormField(
                                       textEditingController: passwordController,
                                       labelText: 'Password',
@@ -133,7 +137,7 @@ class RegesterScreen extends StatelessWidget {
                                         return null;
                                       },
                                     ),
-                                    SizedBox(height: 40.h),
+                                    const SizedBox(height: 20),
                                     ConditionalBuilder(
                                       condition:
                                           state is! RegesterUsersLoadingState,
@@ -141,7 +145,7 @@ class RegesterScreen extends StatelessWidget {
                                         child: CircularProgressIndicator(),
                                       ),
                                       builder: (context) => SizedBox(
-                                        height: 60.h,
+                                        height: 60,
                                         width: double.infinity,
                                         child: MaterialButton(
                                           onPressed: () {
@@ -160,19 +164,19 @@ class RegesterScreen extends StatelessWidget {
                                             "Sign up",
                                             style: GoogleFonts.roboto(
                                               color: Colors.white,
-                                              fontSize: 15.sp,
+                                              fontSize: 16,
                                               fontStyle: FontStyle.italic,
                                             ),
                                           ),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(15.r),
+                                                BorderRadius.circular(15),
                                           ),
                                           color: Colors.blueAccent,
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 30.h),
+                                    const SizedBox(height: 20),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -181,7 +185,7 @@ class RegesterScreen extends StatelessWidget {
                                           "don't have an account ?",
                                           style: GoogleFonts.actor(
                                             color: Colors.black,
-                                            fontSize: 12.sp,
+                                            fontSize: 15,
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),

@@ -30,7 +30,13 @@ class CommentScreen extends StatelessWidget {
                     physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return Padding(
+                      return Container(
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.grey.shade300,
+                          width: 1.0,
+                        ))),
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
                           children: [
@@ -44,16 +50,31 @@ class CommentScreen extends StatelessWidget {
                               width: 10.0.w,
                             ),
                             SizedBox(
-                              width: 250,
+                              width: 280,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(allComment[index].name ?? 'data',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline6
-                                          ?.copyWith(fontSize: 18.0)),
+                                  Row(
+                                    children: [
+                                      Text(allComment[index].name ?? 'data',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6
+                                              ?.copyWith(fontSize: 18.0)),
+                                      const Spacer(),
+                                      Text(
+                                        allComment[index]
+                                                .dateTime
+                                                ?.substring(0, 11) ??
+                                            '',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.copyWith(color: Colors.grey),
+                                      ),
+                                    ],
+                                  ),
                                   const SizedBox(
                                     height: 10.0,
                                   ),

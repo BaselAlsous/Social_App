@@ -1,27 +1,80 @@
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:social_app/Data/Constant/Method/navigation.dart';
+import 'package:social_app/Presentaion/Screens/log/Screens/login_screen.dart';
 
-// class StartPage extends StatelessWidget {
-//   const StartPage({Key? key}) : super(key: key);
+class StartPage extends StatelessWidget {
+  const StartPage({Key? key}) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Column(
-//         children: [
-//           Stack(
-//             children: [
-//               Container(
-//                 decoration: const BoxDecoration(
-//                   image: DecorationImage(
-//                       fit: BoxFit.fill,
-//                       image: NetworkImage(
-//                           'https://img.freepik.com/free-photo/two-friends-having-fun-with-smartphones_1301-6786.jpg?t=st=1649950293~exp=1649950893~hmac=c1619f36bc5e91df1440843d49f22350bd6265b5e9caa032a599950b23f0bfc9&w=360')),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Container(
+      width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.6), BlendMode.darken),
+            fit: BoxFit.cover,
+            image: const NetworkImage(
+                'https://img.freepik.com/free-photo/smiling-chinese-woman-typing-text-message-scrolling-social-network-smartphone-while-drinking-takeaway-coffee-isolated-gray-wall_171337-24695.jpg?size=626&ext=jpg')),
+      ),
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.all(40.0),
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                'Social App',
+                style: Theme.of(context).textTheme.headline4?.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Text(
+                'You can communicate with friends and watch all the news anytime and anywhere',
+                style: Theme.of(context).textTheme.headline6?.copyWith(
+                    color: Colors.white,
+                    height: 1.5,
+                    fontStyle: FontStyle.italic),
+                maxLines: 3,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: 30.0,
+              ),
+              MaterialButton(
+                height: 60.0,
+                minWidth: double.infinity,
+                onPressed: () {
+                  Navigation.navigationAndNotBack(
+                      context: context, page: const LoginScreen());
+                },
+                child: Text(
+                  "Start",
+                  style: GoogleFonts.roboto(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                color: Colors.blueAccent,
+              ),
+            ],
+          ),
+        ),
+      ),
+    ));
+  }
+}
