@@ -47,7 +47,7 @@ class CommentScreen extends StatelessWidget {
                                   "https://scontent.famm2-3.fna.fbcdn.net/v/t39.30808-6/271726145_484291389706577_7862530801905369924_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=09cbfe&_nc_eui2=AeGLJuISumO6qNT33cgX-93MMAnL4CKuJWowCcvgIq4lauQfW8KNbDi6C8res7OVGDkwzuVvcqXw4xnmd206Cu3P&_nc_ohc=wkh6Gpxh1G0AX9uL_qp&tn=ppmnZe700cmmCKj1&_nc_zt=23&_nc_ht=scontent.famm2-3.fna&oh=00_AT9Gj7d_Lx8_bp6BQYgg23M_ptYgRBs1t1LV6GUVizYhuA&oe=625BC68B"),
                             ),
                             SizedBox(
-                              width: 10.0.w,
+                              width: 3.0.w,
                             ),
                             SizedBox(
                               width: 280,
