@@ -3,7 +3,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:social_app/Business/LoginCubit/login_cubit.dart';
 import 'package:social_app/Data/Constant/AppData/app_data.dart';
 import 'package:social_app/Data/Constant/Method/navigation.dart';
@@ -24,7 +23,6 @@ class RegesterScreen extends StatelessWidget {
     TextEditingController phoneController = TextEditingController();
     TextEditingController nameController = TextEditingController();
     return Scaffold(
-      backgroundColor: Colors.grey[50],
       body: BlocProvider(
         create: (context) => LoginCubit(),
         child: BlocConsumer<LoginCubit, LoginState>(
@@ -56,23 +54,17 @@ class RegesterScreen extends StatelessWidget {
                               'Asset/Images/alphabet.png',
                               width: 100.0,
                             ),
-                            Text('Create New Account',
-                                style: GoogleFonts.roboto(
-                                  color: Colors.black,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic,
-                                )),
+                            Text(
+                              'Create New Account',
+                              style: Theme.of(context).textTheme.headline1,
+                            ),
                             const SizedBox(
                               height: 5.0,
                             ),
-                            Text('Please fill in the form to continue',
-                                style: GoogleFonts.roboto(
-                                  color: Colors.grey,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic,
-                                )),
+                            Text(
+                              'Please fill in the form to continue',
+                              style: Theme.of(context).textTheme.caption,
+                            ),
                             const SizedBox(height: 60),
                             Padding(
                               padding:
@@ -162,11 +154,9 @@ class RegesterScreen extends StatelessWidget {
                                           },
                                           child: Text(
                                             "Sign up",
-                                            style: GoogleFonts.roboto(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontStyle: FontStyle.italic,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .button,
                                           ),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
@@ -183,11 +173,9 @@ class RegesterScreen extends StatelessWidget {
                                       children: [
                                         Text(
                                           "don't have an account ?",
-                                          style: GoogleFonts.actor(
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w400,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2,
                                         ),
                                         const SizedBox(
                                           width: 5.0,

@@ -5,6 +5,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 import 'package:social_app/Business/AppCubit/app_cubit.dart';
 import 'package:social_app/Presentaion/Components/custom_toast.dart';
 import 'package:social_app/Presentaion/Screens/Home/Components/custom_post_item.dart';
@@ -68,23 +69,19 @@ class HomeScreen extends StatelessWidget {
                   elevation: 10.0,
                   child: Stack(
                     alignment: Alignment.bottomLeft,
-                    children: const [
+                    children: [
                       Image(
-                        image: NetworkImage(
+                        image: const NetworkImage(
                             'https://img.freepik.com/free-photo/teen-girl-portrait-close-up_23-2149231222.jpg?t=st=1648827180~exp=1648827780~hmac=eb67d2f0361d69efb6f8a351d74047d9ff65a19210abdbfb3973f9b1797a2876&w=1060'),
                         width: double.infinity,
-                        height: 150.0,
+                        height: 25.0.h,
                         fit: BoxFit.cover,
                       ),
                       Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0.sp),
                         child: Text(
                           'Communicate With Friends',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15.0,
-                          ),
+                          style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
                     ],

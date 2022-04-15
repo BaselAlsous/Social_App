@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sizer/sizer.dart';
 import 'package:social_app/Business/AppCubit/app_cubit.dart';
 
 class CommentScreen extends StatelessWidget {
@@ -41,7 +41,7 @@ class CommentScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             CircleAvatar(
-                              radius: 26.0.r,
+                              radius: 26.0,
                               backgroundImage: NetworkImage(allComment[index]
                                       .image ??
                                   "https://scontent.famm2-3.fna.fbcdn.net/v/t39.30808-6/271726145_484291389706577_7862530801905369924_n.jpg?_nc_cat=100&ccb=1-5&_nc_sid=09cbfe&_nc_eui2=AeGLJuISumO6qNT33cgX-93MMAnL4CKuJWowCcvgIq4lauQfW8KNbDi6C8res7OVGDkwzuVvcqXw4xnmd206Cu3P&_nc_ohc=wkh6Gpxh1G0AX9uL_qp&tn=ppmnZe700cmmCKj1&_nc_zt=23&_nc_ht=scontent.famm2-3.fna&oh=00_AT9Gj7d_Lx8_bp6BQYgg23M_ptYgRBs1t1LV6GUVizYhuA&oe=625BC68B"),
@@ -57,11 +57,12 @@ class CommentScreen extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      Text(allComment[index].name ?? 'data',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6
-                                              ?.copyWith(fontSize: 18.0)),
+                                      Text(
+                                        allComment[index].name ?? 'data',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6,
+                                      ),
                                       const Spacer(),
                                       Text(
                                         allComment[index]
@@ -70,8 +71,8 @@ class CommentScreen extends StatelessWidget {
                                             '',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyLarge
-                                            ?.copyWith(color: Colors.grey),
+                                            .caption
+                                            ?.copyWith(fontSize: 15.0),
                                       ),
                                     ],
                                   ),

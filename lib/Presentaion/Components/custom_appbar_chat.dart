@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sizer/sizer.dart';
 
 PreferredSizeWidget customeAppBarChat({
   required BuildContext context,
@@ -11,15 +11,15 @@ PreferredSizeWidget customeAppBarChat({
     title: Row(
       children: [
         CircleAvatar(
-          radius: 20.0.r,
+          radius: 24.0,
           backgroundImage: NetworkImage(image),
         ),
         SizedBox(
-          width: 10.0.w,
+          width: 2.0.w,
         ),
         Text(
           title,
-          style: Theme.of(context).textTheme.bodyLarge,
+          style: Theme.of(context).textTheme.headline4,
         ),
       ],
     ),

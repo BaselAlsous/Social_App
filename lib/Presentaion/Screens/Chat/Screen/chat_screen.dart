@@ -3,7 +3,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sizer/sizer.dart';
 import 'package:social_app/Business/AppCubit/app_cubit.dart';
 import 'package:social_app/Data/Constant/AppData/app_data.dart';
 import 'package:social_app/Data/Model/chat_model.dart';
@@ -30,40 +30,42 @@ class ChatScreen extends StatelessWidget {
             var appCubit = AppCubit.get(context);
             var chat = appCubit.chat;
             return Scaffold(
-              appBar:
-              customeAppBarChat(
+              appBar: customeAppBarChat(
                 context: context,
                 title: modelUserData.name ?? 'Error',
                 image: '${modelUserData.image}',
               ),
               body: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(15.0.sp),
                 child: Column(
                   children: [
                     Expanded(
                       child: ConditionalBuilder(
                         condition: chat.isNotEmpty,
-                        fallback: (context) =>  Column(
-                            children: [
-                              CircleAvatar(
-                                radius: 45.0.r,
-                                backgroundImage:
-                                    NetworkImage('${modelUserData.image}'),
+                        fallback: (context) => Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 55.0,
+                              backgroundImage:
+                                  NetworkImage('${modelUserData.image}'),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 15.0),
+                              child: Text(
+                                modelUserData.name ?? 'Error',
+                                style: Theme.of(context).textTheme.headline3,
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 15.0),
-                                child: Text(
-                                  modelUserData.name ?? 'Error',
-                                  style: Theme.of(context).textTheme.titleLarge,
-                                ),
-                              ),
-                              Text(
-                                modelUserData.bio ?? 'Error',
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                            ],
-                          ),
+                            ),
+                            Text(
+                              modelUserData.bio ?? 'Error',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption
+                                  ?.copyWith(fontSize: 12.0.sp),
+                            ),
+                          ],
+                        ),
                         builder: (context) => ListView.separated(
                           reverse: true,
                           physics: const BouncingScrollPhysics(),
@@ -93,7 +95,7 @@ class ChatScreen extends StatelessWidget {
                         children: [
                           Container(
                             width: double.infinity,
-                            height: 140.0.h,
+                            height: 20.0.h,
                             clipBehavior: Clip.antiAliasWithSaveLayer,
                             decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only(
@@ -112,10 +114,10 @@ class ChatScreen extends StatelessWidget {
                               onTap: () {
                                 appCubit.deleteChatImage();
                               },
-                              child: CircleAvatar(
-                                radius: 15.0.r,
+                              child: const CircleAvatar(
+                                radius: 15.0,
                                 backgroundColor: Colors.blueAccent,
-                                child: const Icon(
+                                child: Icon(
                                   Icons.cancel,
                                   color: Colors.white,
                                 ),
@@ -171,12 +173,12 @@ class ChatScreen extends StatelessWidget {
                                     date: DateTime.now().toString(),
                                     text: textTextEditingController.text,
                                     reseveUid: modelUserData.uid,
-                                    imageReseve: modelUserData.image ,
+                                    imageReseve: modelUserData.image,
                                     nameReseve: modelUserData.name,
                                     bioReseve: modelUserData.bio,
                                     uidReseve: modelUserData.uid,
                                     emailReseve: modelUserData.email,
-                                    imageSend: appCubit.userData?.image ,
+                                    imageSend: appCubit.userData?.image,
                                     nameSend: appCubit.userData?.name,
                                     bioSend: appCubit.userData?.bio,
                                     uidSend: appCubit.userData?.uid,
@@ -190,12 +192,12 @@ class ChatScreen extends StatelessWidget {
                                       date: DateTime.now().toString(),
                                       text: textTextEditingController.text,
                                       reseveUid: modelUserData.uid,
-                                      imageReseve: modelUserData.image ,
+                                      imageReseve: modelUserData.image,
                                       nameReseve: modelUserData.name,
                                       bioReseve: modelUserData.bio,
                                       uidReseve: modelUserData.uid,
                                       emailReseve: modelUserData.email,
-                                      imageSend: appCubit.userData?.image ,
+                                      imageSend: appCubit.userData?.image,
                                       nameSend: appCubit.userData?.name,
                                       bioSend: appCubit.userData?.bio,
                                       uidSend: appCubit.userData?.uid,
@@ -254,21 +256,21 @@ class ChatScreen extends StatelessWidget {
               ),
             ),
           if (chatModel.text != "")
-          Container(
-            padding: const EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: const BorderRadiusDirectional.only(
-                topStart: Radius.circular(10.0),
-                topEnd: Radius.circular(10.0),
-                bottomEnd: Radius.circular(10.0),
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: const BorderRadiusDirectional.only(
+                  topStart: Radius.circular(10.0),
+                  topEnd: Radius.circular(10.0),
+                  bottomEnd: Radius.circular(10.0),
+                ),
+              ),
+              child: Text(
+                chatModel.text ?? 'Error',
+                style: Theme.of(context).textTheme.bodyText2,
               ),
             ),
-            child: Text(
-              chatModel.text ?? 'Error',
-              style: Theme.of(context).textTheme.subtitle2,
-            ),
-          ),
         ],
       ),
     );
@@ -311,7 +313,7 @@ class ChatScreen extends StatelessWidget {
               ),
               child: Text(
                 chatModel.text ?? 'Error',
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.bodyText2,
               ),
             ),
         ],

@@ -3,11 +3,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sizer/sizer.dart';
 import 'package:social_app/Business/AppCubit/app_cubit.dart';
 import 'package:social_app/Data/Constant/AppData/app_data.dart';
 import 'package:social_app/Data/Constant/Theme/app_theme.dart';
 import 'package:social_app/Data/Helper/cache_helper.dart';
+import 'package:social_app/Presentaion/Screens/SpalshScreen/splash_screen.dart';
 import 'package:social_app/Presentaion/Screens/log/Screens/login_screen.dart';
 import 'package:social_app/Presentaion/Screens/log/Screens/start_page.dart';
 import 'package:social_app/Presentaion/social_layout.dart';
@@ -47,15 +48,16 @@ class SocialApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AppCubit()..getUserData(),
-      child: ScreenUtilInit(
-        designSize: const Size(320, 650),
-        splitScreenMode: true,
-        builder: () => MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.lightTheme,
-          title: 'Social App',
-          home: const StartPage(),
-        ),
+      child: Sizer(
+        builder: (BuildContext context, Orientation orientation,
+            DeviceType deviceType) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            title: 'Social App',
+            home: SplashScreen(page: page!),
+          );
+        },
       ),
     );
   }

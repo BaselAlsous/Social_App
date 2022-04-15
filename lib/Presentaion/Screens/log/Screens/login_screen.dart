@@ -3,8 +3,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:social_app/Business/LoginCubit/login_cubit.dart';
 import 'package:social_app/Data/Constant/AppData/app_data.dart';
 import 'package:social_app/Data/Constant/Method/navigation.dart';
@@ -42,7 +40,6 @@ class LoginScreen extends StatelessWidget {
         builder: (context, state) {
           var cubit = LoginCubit.get(context: context);
           return Scaffold(
-            backgroundColor: Colors.grey[50],
             body: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
@@ -57,22 +54,12 @@ class LoginScreen extends StatelessWidget {
                               width: 100.0,
                             ),
                             Text('Welcome Back!',
-                                style: GoogleFonts.roboto(
-                                  color: Colors.black87,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic,
-                                )),
+                                style: Theme.of(context).textTheme.headline1),
                             const SizedBox(
                               height: 5.0,
                             ),
                             Text('Please sign in to your acount',
-                                style: GoogleFonts.roboto(
-                                  color: Colors.grey,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic,
-                                )),
+                                style: Theme.of(context).textTheme.caption),
                             const SizedBox(height: 60),
                             Padding(
                               padding:
@@ -121,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                                               'forgit password',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .bodyLarge
+                                                  .bodyText2
                                                   ?.copyWith(
                                                     color: Colors.grey[500],
                                                   ),
@@ -151,15 +138,13 @@ class LoginScreen extends StatelessWidget {
                                           },
                                           child: Text(
                                             "Login",
-                                            style: GoogleFonts.roboto(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontStyle: FontStyle.italic,
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .button,
                                           ),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(15.r),
+                                                BorderRadius.circular(15),
                                           ),
                                           color: Colors.blueAccent,
                                         ),
@@ -193,17 +178,18 @@ class LoginScreen extends StatelessWidget {
                                               ),
                                               Text(
                                                 "Sign in with google",
-                                                style: GoogleFonts.roboto(
-                                                  color: Colors.black87,
-                                                  fontSize: 16,
-                                                  fontStyle: FontStyle.italic,
-                                                ),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .button
+                                                    ?.copyWith(
+                                                      color: Colors.black,
+                                                    ),
                                               ),
                                             ],
                                           ),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
-                                                BorderRadius.circular(15.r),
+                                                BorderRadius.circular(15),
                                           ),
                                           color: Colors.white,
                                         ),
@@ -216,11 +202,9 @@ class LoginScreen extends StatelessWidget {
                                       children: [
                                         Text(
                                           "don't have an account ?",
-                                          style: GoogleFonts.actor(
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w400,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2,
                                         ),
                                         const SizedBox(
                                           width: 5.0,

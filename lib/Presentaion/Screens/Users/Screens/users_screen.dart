@@ -30,72 +30,69 @@ class UsersScreen extends StatelessWidget {
               child: ListView.separated(
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: (){
+                    onTap: () {
                       Navigation.navigationAndBack(
                           context: context,
                           page: UsersProfileScreen(
-                            modelUserData: allUser[index]
-                          ));
+                              modelUserData: allUser[index]));
                     },
                     child: Row(
                       children: [
-                      Expanded(
-                        flex: 2,
-                        child: Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 35.0,
-                            backgroundImage:
-                            NetworkImage('${allUser[index].image}'),
+                        Expanded(
+                          flex: 2,
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 35.0,
+                                backgroundImage:
+                                    NetworkImage('${allUser[index].image}'),
+                              ),
+                              const SizedBox(
+                                width: 10.0,
+                              ),
+                              Text(
+                                "${allUser[index].name}",
+                                style: Theme.of(context).textTheme.headline6,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            width: 10.0,
-                          ),
-                          Text("${allUser[index].name}",
-                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              fontSize: 17.0,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),),
-                      if(follower == 1)
-                      Expanded(
-                          flex: 1,
+                        ),
+                        if (follower == 1)
+                          Expanded(
+                            flex: 1,
                             child: MaterialButton(
-                              onPressed: (){
+                              onPressed: () {
                                 appCubit.unFollow(
                                   userUid: allUser[index].uid,
                                 );
                               },
                               color: Colors.blueAccent,
-                              child:  Text('Follow',
-                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                color: Colors.white,
-                                  ),
+                              child: Text(
+                                'Follow',
+                                style: Theme.of(context).textTheme.button,
                               ),
                             ),
-                        ),
-                        if(follower == 0)
+                          ),
+                        if (follower == 0)
                           Expanded(
                             flex: 1,
                             child: MaterialButton(
-                              onPressed: (){
+                              onPressed: () {
                                 appCubit.followUser(
                                   image: allUser[index].image,
                                   name: allUser[index].name,
                                   uid: allUser[index].uid,
                                   userUid: allUser[index].uid,
-                                  myImage:appCubit.userData?.image,
-                                  myName: appCubit.userData?.name ,
-                                  myUid:appCubit.userData?.uid ,
+                                  myImage: appCubit.userData?.image,
+                                  myName: appCubit.userData?.name,
+                                  myUid: appCubit.userData?.uid,
                                 );
                               },
                               color: Colors.green,
-                              child:  Text('Follow',
-                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                  color: Colors.white,
-                                ),
+                              child: Text(
+                                'Follow',
+                                style: Theme.of(context).textTheme.button,
                               ),
                             ),
                           ),

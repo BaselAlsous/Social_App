@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sizer/sizer.dart';
 import 'package:social_app/Business/AppCubit/app_cubit.dart';
 import 'package:social_app/Data/Constant/Method/navigation.dart';
 import 'package:social_app/Data/Model/model_post.dart';
@@ -36,51 +36,57 @@ class CustomePostItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 26.0.r,
-                      backgroundImage: NetworkImage(postModel.image ?? ""),
-                    ),
-                    SizedBox(
-                      width: 10.0.w,
-                    ),
-                    Expanded(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(postModel.name ?? 'Error',
-                            style: Theme.of(context).textTheme.button),
-                        SizedBox(
-                          height: 5.0.h,
-                        ),
-                        Text(
-                          postModel.dateTime ?? "Error",
-                          style: Theme.of(context).textTheme.caption,
-                        ),
-                      ],
-                    )),
-                    SizedBox(
-                      width: 20.0.w,
-                    ),
-                    IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.more_horiz)),
-                  ],
+                Padding(
+                  padding: EdgeInsets.all(6.0.sp),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 26.0,
+                        backgroundImage: NetworkImage(postModel.image ?? ""),
+                      ),
+                      SizedBox(
+                        width: 4.0.w,
+                      ),
+                      Expanded(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 2.0.h,
+                          ),
+                          Text(postModel.name ?? 'Error',
+                              style: Theme.of(context).textTheme.headline5),
+                          SizedBox(
+                            height: 1.0.h,
+                          ),
+                          Text(
+                            postModel.dateTime?.substring(5, 16) ?? "Error",
+                            style: Theme.of(context)
+                                .textTheme
+                                .caption
+                                ?.copyWith(fontSize: 10.0.sp),
+                          ),
+                        ],
+                      )),
+                      IconButton(
+                          onPressed: () {}, icon: const Icon(Icons.more_horiz)),
+                    ],
+                  ),
                 ),
                 SizedBox(
-                  height: 15.0.h,
+                  height: 2.0.h,
                 ),
                 Padding(
                   padding:
                       const EdgeInsets.only(top: 8.0, right: 8.0, left: 8.0),
                   child: Text(
                     postModel.text ?? 'Error',
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ),
                 SizedBox(
-                  height: 15.0.h,
+                  height: 2.0.h,
                 ),
                 if (postModel.postImage != "")
                   Card(
@@ -92,16 +98,16 @@ class CustomePostItem extends StatelessWidget {
                         image: NetworkImage(postModel.postImage ?? 'Error'),
                         fit: BoxFit.cover,
                         width: double.infinity,
-                        height: 300.0.h,
+                        height: 50.0.h,
                       ),
                     ),
                   ),
                 SizedBox(
-                  height: 5.0.h,
+                  height: 2.0.h,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 15.0),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 5.0.w),
                   child: Row(
                     children: [
                       Expanded(
@@ -112,16 +118,16 @@ class CustomePostItem extends StatelessWidget {
                               Icon(
                                 Icons.favorite,
                                 color: Colors.grey,
-                                size: 18.0.sp,
+                                size: 15.0.sp,
                               ),
                               SizedBox(
-                                width: 5.0.w,
+                                width: 1.0.w,
                               ),
                               Text(
                                 countLike.toString(),
                                 style: TextStyle(
                                   color: Colors.grey,
-                                  fontSize: 15.0.sp,
+                                  fontSize: 10.0.sp,
                                 ),
                               ),
                             ],
@@ -144,7 +150,7 @@ class CustomePostItem extends StatelessWidget {
                               Icon(
                                 Icons.comment,
                                 color: Colors.grey,
-                                size: 18.0.sp,
+                                size: 15.0.sp,
                               ),
                             ],
                           ),
@@ -158,33 +164,60 @@ class CustomePostItem extends StatelessWidget {
                   child: Container(
                     width: double.infinity,
                     color: Colors.grey[300],
-                    height: 1.0.h,
+                    height: 0.2.h,
                   ),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: InkWell(
+                Padding(
+                  padding: EdgeInsets.all(4.0.sp),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            Navigation.navigationAndBack(
+                                context: context,
+                                page: CommentScreen(
+                                  index: index,
+                                  appCubit: appCubit,
+                                ));
+                          },
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 20.0,
+                                backgroundImage: NetworkImage(
+                                    modelUserData.image ?? "Error"),
+                              ),
+                              SizedBox(
+                                width: 5.0.w,
+                              ),
+                              const Text(
+                                'Write Comment ...',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
                         onTap: () {
-                          Navigation.navigationAndBack(
-                              context: context,
-                              page: CommentScreen(
-                                index: index,
-                                appCubit: appCubit,
-                              ));
+                          appCubit.sendLikePress(
+                              postId: appCubit.postsId[index]);
                         },
                         child: Row(
                           children: [
-                            CircleAvatar(
-                              radius: 18.0.r,
-                              backgroundImage:
-                                  NetworkImage(modelUserData.image ?? "Error"),
+                            Icon(
+                              Icons.favorite,
+                              color: Colors.grey,
+                              size: 17.0.sp,
                             ),
                             SizedBox(
-                              width: 15.0.w,
+                              width: 1.0.w,
                             ),
                             const Text(
-                              'Write Comment ...',
+                              'Like',
                               style: TextStyle(
                                 color: Colors.grey,
                               ),
@@ -192,31 +225,8 @@ class CustomePostItem extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        appCubit.sendLikePress(postId: appCubit.postsId[index]);
-                      },
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.favorite,
-                            color:Colors.grey,
-                            size: 21.0.sp,
-                          ),
-                          SizedBox(
-                            width: 5.0.w,
-                          ),
-                          const Text(
-                            'Like',
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),

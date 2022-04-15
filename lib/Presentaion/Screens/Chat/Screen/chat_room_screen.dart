@@ -1,7 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sizer/sizer.dart';
 import 'package:social_app/Business/AppCubit/app_cubit.dart';
 import 'package:social_app/Data/Constant/Method/navigation.dart';
 import 'package:social_app/Data/Model/model_user_data.dart';
@@ -12,39 +12,40 @@ class ChatRoomScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        AppCubit.get(context).getAllChatUser();
-        return BlocConsumer<AppCubit, AppState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            var appCubit = AppCubit.get(context);
-            var allChatUser = appCubit.allChatUser;
-            return ConditionalBuilder(
-              condition: allChatUser.isNotEmpty,
-              fallback: (context) => Center(
-                child: Text("You don't have any message" , style: Theme.of(context).textTheme.headline5,),
+    return Builder(builder: (context) {
+      AppCubit.get(context).getAllChatUser();
+      return BlocConsumer<AppCubit, AppState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          var appCubit = AppCubit.get(context);
+          var allChatUser = appCubit.allChatUser;
+          return ConditionalBuilder(
+            condition: allChatUser.isNotEmpty,
+            fallback: (context) => Center(
+              child: Text(
+                "You don't have any message",
+                style: Theme.of(context).textTheme.headline5,
               ),
-              builder: (context) => Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) => buildUser(
-                    context: context,
-                    image: allChatUser[index].image ??
-                        'https://img.freepik.com/free-psd/ramadan-3d-rendering-with-moon-ramadan-lights-illustration_159711-2136.jpg?size=626&ext=jpg',
-                    name: allChatUser[index].name ?? 'Error',
-                    modelUserData: allChatUser[index],
-                    appCubit: appCubit,
-                  ),
-                  itemCount: allChatUser.length,
+            ),
+            builder: (context) => Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context, index) => buildUser(
+                  context: context,
+                  image: allChatUser[index].image ??
+                      'https://img.freepik.com/free-psd/ramadan-3d-rendering-with-moon-ramadan-lights-illustration_159711-2136.jpg?size=626&ext=jpg',
+                  name: allChatUser[index].name ?? 'Error',
+                  modelUserData: allChatUser[index],
+                  appCubit: appCubit,
                 ),
+                itemCount: allChatUser.length,
               ),
-            );
-          },
-        );
-      }
-    );
+            ),
+          );
+        },
+      );
+    });
   }
 
   Widget buildUser({
@@ -64,13 +65,13 @@ class ChatRoomScreen extends StatelessWidget {
                   return AlertDialog(
                     title: Row(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.info,
                           color: Colors.amber,
-                          size: 30.0,
+                          size: 30.0.sp,
                         ),
-                        const SizedBox(
-                          width: 10.0,
+                        SizedBox(
+                          width: 5.0.w,
                         ),
                         Center(
                             child: Text(
@@ -119,21 +120,26 @@ class ChatRoomScreen extends StatelessWidget {
           child: Row(
             children: [
               CircleAvatar(
-                radius: 25.0.r,
+                radius: 30.0,
                 backgroundImage: NetworkImage(image),
               ),
               SizedBox(
-                width: 10.0.w,
+                width: 4.0.w,
               ),
-              Text(name, style: Theme.of(context).textTheme.headline6),
+              Text(name, style: Theme.of(context).textTheme.headline4),
+              const Spacer(),
+              const Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.grey,
+              )
             ],
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: EdgeInsets.all(15.0.sp),
           child: Container(
             color: Colors.grey[300],
-            height: 1.0,
+            height: 0.2.h,
           ),
         ),
       ],

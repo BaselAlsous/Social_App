@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:social_app/Data/Constant/Method/navigation.dart';
 import 'package:social_app/Presentaion/Screens/log/Screens/login_screen.dart';
 
@@ -30,9 +29,8 @@ class StartPage extends StatelessWidget {
             children: [
               Text(
                 'Social App',
-                style: Theme.of(context).textTheme.headline4?.copyWith(
+                style: Theme.of(context).textTheme.headline1?.copyWith(
                     color: Colors.white,
-                    fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic),
                 textAlign: TextAlign.center,
               ),
@@ -41,10 +39,10 @@ class StartPage extends StatelessWidget {
               ),
               Text(
                 'You can communicate with friends and watch all the news anytime and anywhere',
-                style: Theme.of(context).textTheme.headline6?.copyWith(
-                    color: Colors.white,
-                    height: 1.5,
-                    fontStyle: FontStyle.italic),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5
+                    ?.copyWith(color: Colors.white),
                 maxLines: 3,
                 textAlign: TextAlign.center,
               ),
@@ -60,11 +58,7 @@ class StartPage extends StatelessWidget {
                 },
                 child: Text(
                   "Start",
-                  style: GoogleFonts.roboto(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontStyle: FontStyle.italic,
-                  ),
+                  style: Theme.of(context).textTheme.button,
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),

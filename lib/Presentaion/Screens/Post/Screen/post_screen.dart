@@ -1,7 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sizer/sizer.dart';
 import 'package:social_app/Business/AppCubit/app_cubit.dart';
 import 'package:social_app/Presentaion/Components/custom_appbar.dart';
 import 'package:social_app/Presentaion/Components/custom_loadin.dart';
@@ -52,18 +52,18 @@ class PostScreen extends StatelessWidget {
                 child: CustomLoading.spinkit,
               ),
               builder: (context) => Padding(
-                padding: EdgeInsets.all(20.0.sp),
+                padding: EdgeInsets.all(15.0.sp),
                 child: Column(
                   children: [
                     Row(
                       children: [
                         CircleAvatar(
-                          radius: 25.0.r,
+                          radius: 30.0,
                           backgroundImage:
                               NetworkImage(appCubit.userData?.image ?? ""),
                         ),
                         SizedBox(
-                          width: 20.0.w,
+                          width: 3.0.w,
                         ),
                         Expanded(
                             child: Column(
@@ -71,23 +71,19 @@ class PostScreen extends StatelessWidget {
                           children: [
                             Text(
                               appCubit.userData?.name ?? 'Error',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14.0.sp,
-                                fontWeight: FontWeight.bold,
-                                height: 1.4.h,
-                              ),
+                              style: Theme.of(context).textTheme.headline4,
                             ),
                           ],
                         )),
                       ],
                     ),
                     SizedBox(
-                      height: 10.0.h,
+                      height: 2.0.h,
                     ),
                     Expanded(
                       child: TextFormField(
                         controller: postTextEditingController,
+                        maxLines: 100,
                         decoration: const InputDecoration(
                           hintText: 'What Is In Your Mind ....',
                           border: InputBorder.none,
@@ -100,7 +96,7 @@ class PostScreen extends StatelessWidget {
                         children: [
                           Container(
                             width: double.infinity,
-                            height: 140.0.h,
+                            height: 30.0.h,
                             clipBehavior: Clip.antiAliasWithSaveLayer,
                             decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only(
@@ -119,10 +115,10 @@ class PostScreen extends StatelessWidget {
                               onTap: () {
                                 appCubit.deleteImagePost();
                               },
-                              child: CircleAvatar(
-                                radius: 15.0.r,
+                              child: const CircleAvatar(
+                                radius: 15.0,
                                 backgroundColor: Colors.blueAccent,
-                                child: const Icon(
+                                child: Icon(
                                   Icons.cancel,
                                   color: Colors.white,
                                 ),
@@ -132,7 +128,7 @@ class PostScreen extends StatelessWidget {
                         ],
                       ),
                     SizedBox(
-                      height: 20.0.h,
+                      height: 1.0.h,
                     ),
                     Row(
                       children: [
