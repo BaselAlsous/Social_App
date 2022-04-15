@@ -88,7 +88,7 @@ class CustomePostItem extends StatelessWidget {
                 SizedBox(
                   height: 2.0.h,
                 ),
-                if (postModel.postImage != "")
+                if (postModel.postImage != "null")
                   Card(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     elevation: 0.0,
@@ -98,7 +98,7 @@ class CustomePostItem extends StatelessWidget {
                         image: NetworkImage(postModel.postImage ?? 'Error'),
                         fit: BoxFit.cover,
                         width: double.infinity,
-                        height: 50.0.h,
+                        height: 40.0.h,
                       ),
                     ),
                   ),

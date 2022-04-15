@@ -264,7 +264,7 @@ class AppCubit extends Cubit<AppState> {
       image: userData?.image,
       dateTime: date,
       text: text,
-      postImage: postImage ?? '',
+      postImage: postImage ?? 'null',
     );
 
     FirebaseFirestore.instance
