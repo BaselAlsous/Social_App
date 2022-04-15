@@ -40,13 +40,6 @@ class SocialLayout extends StatelessWidget {
                       size: 25.0,
                     )),
                 IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.search_outlined,
-                      color: Colors.grey,
-                      size: 25.0,
-                    )),
-                IconButton(
                     onPressed: () {
                       FirebaseAuth.instance.signOut();
                       CacheHelper.setData(key: 'uid', value: 'null')

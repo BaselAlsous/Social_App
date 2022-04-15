@@ -21,13 +21,6 @@ class UsersProfileScreen extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               children: [
                 Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.arrow_back_rounded),
-                  ),
-                ),
-                Align(
                   alignment: Alignment.topCenter,
                   child: Container(
                     width: double.infinity,
