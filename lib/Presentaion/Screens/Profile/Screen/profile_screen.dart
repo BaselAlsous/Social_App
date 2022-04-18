@@ -28,16 +28,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
           listener: (context, state) {},
           builder: (context, state) {
             var appCubit = AppCubit.get(context);
-            return RefreshIndicator(
-              onRefresh: () async {
-                appCubit.getUserData();
-              },
-              child: ConditionalBuilder(
-                condition: appCubit.userData != null,
-                fallback: (context) => Center(
-                  child: CustomLoading.spinkit,
-                ),
-                builder: (context) => SingleChildScrollView(
+            return ConditionalBuilder(
+              condition: appCubit.userData != null,
+              fallback: (context) => Center(
+                child: CustomLoading.spinkit,
+              ),
+              builder: (context) => RefreshIndicator(
+                onRefresh: () async {
+                  appCubit.getUserData();
+                },
+                child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
@@ -199,6 +199,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         MyPosts(
                           model: appCubit.userPost,
                         ),
+                      if (appCubit.userPost.isEmpty)
+                        SizedBox(
+                          height: 5.0.h,
+                          width: double.infinity,
+                          child: Center(
+                            child: Text(
+                              'You Dont Share Any Post',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      if (appCubit.userPost.length <= 3)
+                        SizedBox(
+                          height: 30.0.h,
+                        ),
                     ],
                   ),
                 ),
@@ -217,29 +235,32 @@ class MyPosts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: const EdgeInsets.only(top: 15.0),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        mainAxisSpacing: 10.0,
-        crossAxisSpacing: 10.0,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 2.0.w),
+      child: GridView.builder(
+        padding: const EdgeInsets.only(top: 15.0),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          mainAxisSpacing: 10.0,
+          crossAxisSpacing: 10.0,
+        ),
+        itemCount: model.length,
+        itemBuilder: (context, index) {
+          return Container(
+            decoration: BoxDecoration(
+                color: Colors.blueAccent,
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: AssetImage(model[index].postImage != 'null'
+                      ? '${model[index].postImage}'
+                      : 'Asset/Images/new_post.jpg'),
+                  fit: BoxFit.cover,
+                )),
+          );
+        },
       ),
-      itemCount: model.length,
-      itemBuilder: (context, index) {
-        return Container(
-          decoration: BoxDecoration(
-              color: Colors.blueAccent,
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: NetworkImage(model[index].postImage != ''
-                    ? model[index].postImage ?? ""
-                    : 'https://image.shutterstock.com/shutterstock/photos/1444569020/display_1500/stock-vector-new-post-neon-text-for-video-blog-vlogging-social-media-content-vector-illustration-design-1444569020.jpg'),
-                fit: BoxFit.cover,
-              )),
-        );
-      },
     );
   }
 }

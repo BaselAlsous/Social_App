@@ -27,7 +27,6 @@ class GetPostErrorState extends AppState {
   GetPostErrorState(this.error);
 }
 
-
 //todo : Classes Send Follower
 
 class SendFollowerSccessState extends AppState {}
@@ -36,7 +35,6 @@ class SendFollowerErrorState extends AppState {
   final String error;
   SendFollowerErrorState(this.error);
 }
-
 
 //todo : Classes GET Follower
 
@@ -73,9 +71,6 @@ class GetCommentErrorState extends AppState {
   final String error;
   GetCommentErrorState(this.error);
 }
-
-
-
 
 //todo : Classes Delete Follow
 
@@ -146,14 +141,11 @@ class SendChatImageErrorState extends AppState {
 
 class DeleteChatImageSccessState extends AppState {}
 
-
-
 // todo: Classes Like Post
 
 class LikePostErrorState extends AppState {}
 
 class LikePostSccessState extends AppState {}
-
 
 // todo: Classes Like Post
 
@@ -161,13 +153,13 @@ class GetLikePostErrorState extends AppState {}
 
 class GetLikePostSccessState extends AppState {}
 
-
-
 // todo: Classes Get All User
 
 class GetAllUserErrorState extends AppState {}
 
 class GetAllUserSccessState extends AppState {}
+
+class GetAllUserLoadingState extends AppState {}
 
 // todo: Classes Toggle Bottom Nav Bar
 

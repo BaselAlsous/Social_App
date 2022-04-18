@@ -20,95 +20,111 @@ class UsersScreen extends StatelessWidget {
         int follower = appCubit.followDoneModel.length;
         // print(follower.toString());
         return Scaffold(
-          body: ConditionalBuilder(
-            condition: allUser.isNotEmpty,
-            fallback: (context) => Center(
-              child: CustomLoading.spinkit,
-            ),
-            builder: (context) => Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: ListView.separated(
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigation.navigationAndBack(
-                          context: context,
-                          page: UsersProfileScreen(
-                              modelUserData: allUser[index]));
-                    },
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
+          body: allUser.isNotEmpty
+              ? ConditionalBuilder(
+                  condition: state is! GetAllUserLoadingState,
+                  fallback: (context) => Center(
+                    child: CustomLoading.spinkit,
+                  ),
+                  builder: (context) => Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: ListView.separated(
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            Navigation.navigationAndBack(
+                                context: context,
+                                page: UsersProfileScreen(
+                                    modelUserData: allUser[index]));
+                          },
                           child: Row(
                             children: [
-                              CircleAvatar(
-                                radius: 35.0,
-                                backgroundImage:
-                                    NetworkImage('${allUser[index].image}'),
+                              Expanded(
+                                flex: 2,
+                                child: Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 35.0,
+                                      backgroundImage: NetworkImage(
+                                          '${allUser[index].image}'),
+                                    ),
+                                    const SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    Text(
+                                      "${allUser[index].name}",
+                                      style:
+                                          Theme.of(context).textTheme.headline6,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
                               ),
-                              const SizedBox(
-                                width: 10.0,
-                              ),
-                              Text(
-                                "${allUser[index].name}",
-                                style: Theme.of(context).textTheme.headline6,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                              if (follower == 1)
+                                Expanded(
+                                  flex: 1,
+                                  child: MaterialButton(
+                                    onPressed: () {
+                                      appCubit.unFollow(
+                                        userUid: allUser[index].uid,
+                                      );
+                                    },
+                                    color: Colors.blueAccent,
+                                    child: Text(
+                                      'Follow',
+                                      style: Theme.of(context).textTheme.button,
+                                    ),
+                                  ),
+                                ),
+                              if (follower == 0)
+                                Expanded(
+                                  flex: 1,
+                                  child: MaterialButton(
+                                    onPressed: () {
+                                      appCubit.followUser(
+                                        image: allUser[index].image,
+                                        name: allUser[index].name,
+                                        uid: allUser[index].uid,
+                                        userUid: allUser[index].uid,
+                                        myImage: appCubit.userData?.image,
+                                        myName: appCubit.userData?.name,
+                                        myUid: appCubit.userData?.uid,
+                                      );
+                                    },
+                                    color: Colors.green,
+                                    child: Text(
+                                      'Follow',
+                                      style: Theme.of(context).textTheme.button,
+                                    ),
+                                  ),
+                                ),
                             ],
                           ),
-                        ),
-                        if (follower == 1)
-                          Expanded(
-                            flex: 1,
-                            child: MaterialButton(
-                              onPressed: () {
-                                appCubit.unFollow(
-                                  userUid: allUser[index].uid,
-                                );
-                              },
-                              color: Colors.blueAccent,
-                              child: Text(
-                                'Follow',
-                                style: Theme.of(context).textTheme.button,
-                              ),
-                            ),
-                          ),
-                        if (follower == 0)
-                          Expanded(
-                            flex: 1,
-                            child: MaterialButton(
-                              onPressed: () {
-                                appCubit.followUser(
-                                  image: allUser[index].image,
-                                  name: allUser[index].name,
-                                  uid: allUser[index].uid,
-                                  userUid: allUser[index].uid,
-                                  myImage: appCubit.userData?.image,
-                                  myName: appCubit.userData?.name,
-                                  myUid: appCubit.userData?.uid,
-                                );
-                              },
-                              color: Colors.green,
-                              child: Text(
-                                'Follow',
-                                style: Theme.of(context).textTheme.button,
-                              ),
-                            ),
-                          ),
-                      ],
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(
+                          height: 10.0,
+                        );
+                      },
+                      itemCount: allUser.length,
                     ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    height: 10.0,
-                  );
-                },
-                itemCount: allUser.length,
-              ),
-            ),
-          ),
+                  ),
+                )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Text(
+                        "No Users",
+                        style: Theme.of(context).textTheme.caption?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
         );
       },
     );

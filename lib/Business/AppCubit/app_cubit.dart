@@ -323,52 +323,79 @@ class AppCubit extends Cubit<AppState> {
 
   void sendLikePress({
     required String? postId,
-    }) {
-
-      LikeModel likeModel   = LikeModel(
-        like: 'true',
-        uid: AppData.uid,
-      );
-
+  }) {
+    LikeModel likeModel = LikeModel(
+      like: 'true',
+      uid: AppData.uid,
+    );
 
     FirebaseFirestore.instance
         .collection('Post Likes')
-        .doc(postId)
-        .collection('Like')
         .doc(AppData.uid)
-        .set(likeModel.toMap()).then((value) {
+        .collection('Like')
+        .doc(postId)
+        .set(likeModel.toMap())
+        .then((value) {
+      emit(LikePostSccessState());
+    }).catchError((error) {
+      emit(LikePostErrorState());
+    });
+
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(AppData.uid)
+        .collection('Likes')
+        .doc(postId)
+        .set(likeModel.toMap())
+        .then((value) {
       emit(LikePostSccessState());
     }).catchError((error) {
       emit(LikePostErrorState());
     });
   }
 
-
   List<LikeModel> allLike = [];
 
-  void getLikePress({
-     required String? postId,
-  }){
-
+  void getLikePress() {
     FirebaseFirestore.instance
-    .collection('Post Likes')
-    .doc(postId)
-    .collection('Like')
-    .doc(AppData.uid)
-    .get()
-    .then((value) {
-      allLike.add(LikeModel.fromJson(value.data()!));
-      emit(GetLikePostSccessState());
-    }).catchError((error){
-      emit(GetLikePostErrorState());
+        .collection('Post Likes')
+        .doc(AppData.uid)
+        .collection('Like')
+        .where('uid', isEqualTo: AppData.uid)
+        .snapshots()
+        .listen((event) {
+      allLike = [];
+      event.docs.forEach((element) {
+        allLike.add(LikeModel.fromJson(element.data()));
+      });
     });
+    print(allLike.length.toString());
+    emit(GetLikePostSccessState());
   }
+
+  // List<LikeModel> myLike = [];
+
+  // void getMyLike() {
+  //   FirebaseFirestore.instance
+  //       .collection('Users')
+  //       .doc(AppData.uid)
+  //       .collection('Likes')
+  //       .snapshots()
+  //       .listen((event) {
+  //     myLike = [];
+  //     event.docs.forEach((element) {
+  //       myLike.add(LikeModel.fromJson(element.data()));
+  //     });
+  //   });
+  //   print(myLike.length.toString() + '  sdfghjkl;lkjhgfdghjkl;kjhgf');
+  // }
 
   // todo: Get All User
 
   List<ModelUserData> allUser = [];
 
   void getAllUser() {
+    emit(GetAllUserLoadingState());
     FirebaseFirestore.instance.collection('Users').snapshots().listen((event) {
       allUser = [];
       event.docs.forEach((element) {
@@ -376,8 +403,8 @@ class AppCubit extends Cubit<AppState> {
           allUser.add(ModelUserData.fromJson(element.data()));
         }
       });
-      print(allUser);
     });
+    emit(GetAllUserSccessState());
   }
 
   // todo: Function Chat
@@ -751,7 +778,7 @@ class AppCubit extends Cubit<AppState> {
     String? image,
     String? text,
     String? idPost,
-    String? dateTime ,
+    String? dateTime,
   ) {
     CommentModel commentModel = CommentModel(
       name: name,
@@ -782,7 +809,7 @@ class AppCubit extends Cubit<AppState> {
         .collection('Post Comments')
         .doc(idPost)
         .collection('Comments')
-        .orderBy('dateTime' , descending:true)
+        .orderBy('dateTime', descending: true)
         .snapshots()
         .listen((event) {
       allComment = [];

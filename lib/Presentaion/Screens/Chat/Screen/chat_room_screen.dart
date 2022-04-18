@@ -24,7 +24,9 @@ class ChatRoomScreen extends StatelessWidget {
             fallback: (context) => Center(
               child: Text(
                 "You don't have any message",
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.caption?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
             ),
             builder: (context) => Padding(
