@@ -341,17 +341,17 @@ class AppCubit extends Cubit<AppState> {
       emit(LikePostErrorState());
     });
 
-    FirebaseFirestore.instance
-        .collection('Users')
-        .doc(AppData.uid)
-        .collection('Likes')
-        .doc(postId)
-        .set(likeModel.toMap())
-        .then((value) {
-      emit(LikePostSccessState());
-    }).catchError((error) {
-      emit(LikePostErrorState());
-    });
+    // FirebaseFirestore.instance
+    //     .collection('Users')
+    //     .doc(AppData.uid)
+    //     .collection('Likes')
+    //     .doc(postId)
+    //     .set(likeModel.toMap())
+    //     .then((value) {
+    //   emit(LikePostSccessState());
+    // }).catchError((error) {
+    //   emit(LikePostErrorState());
+    // });
   }
 
   List<LikeModel> allLike = [];

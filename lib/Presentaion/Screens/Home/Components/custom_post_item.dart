@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_app/Business/AppCubit/app_cubit.dart';
-import 'package:social_app/Data/Constant/AppData/app_data.dart';
 import 'package:social_app/Data/Constant/Method/navigation.dart';
-import 'package:social_app/Data/Model/like_model.dart';
 import 'package:social_app/Data/Model/model_post.dart';
 import 'package:social_app/Data/Model/model_user_data.dart';
 import 'package:social_app/Presentaion/Screens/Home/Screens/comment_screen.dart';
