@@ -16,6 +16,18 @@ class GetUsersDataErrorState extends AppState {
   GetUsersDataErrorState(this.error);
 }
 
+
+// todo: Classes Get Users Post
+
+class GetUsersPostsLoadingState extends AppState {}
+
+class GetUsersPostsSccessState extends AppState {}
+
+class GetUsersPostsErrorState extends AppState {
+  final String error;
+  GetUsersPostsErrorState(this.error);
+}
+
 // todo: Classes Get All Post
 
 class GetPostLoadingState extends AppState {}
@@ -43,6 +55,25 @@ class GetFollowerSccessState extends AppState {}
 class GetFollowerErrorState extends AppState {
   final String error;
   GetFollowerErrorState(this.error);
+}
+
+//todo : Classes GET Follower Users
+
+class GetFollowerUsersSccessState extends AppState {}
+
+class GetFollowerUsersErrorState extends AppState {
+  final String error;
+  GetFollowerUsersErrorState(this.error);
+}
+
+
+//todo : Classes GET Follower Users
+
+class GetFollowDoneUsersSccessState extends AppState {}
+
+class GetFollowDoneUsersErrorState extends AppState {
+  final String error;
+  GetFollowDoneUsersErrorState(this.error);
 }
 
 //todo : Classes GET Follower

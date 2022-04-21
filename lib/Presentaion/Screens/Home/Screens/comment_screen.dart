@@ -125,6 +125,7 @@ class CommentScreen extends StatelessWidget {
                       IconButton(
                         padding: EdgeInsets.zero,
                         onPressed: () {
+                          commentTextEditingController.text = '';
                           appCubit?.commentPost(
                             appCubit?.userData?.name,
                             appCubit?.userData?.image,

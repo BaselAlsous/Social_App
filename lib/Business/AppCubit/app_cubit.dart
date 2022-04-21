@@ -733,6 +733,45 @@ class AppCubit extends Cubit<AppState> {
     });
   }
 
+  // todo: Get All Follower And Following Users
+
+  List<FollowerModel> followerUsers = [];
+  List<FollowerModel> followingUsers = [];
+
+  void getFollowUsers({
+    required String userUid,
+  }) {
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(userUid)
+        .collection('Followers')
+        .get()
+        .then((value) {
+      followerUsers = [];
+      value.docs.forEach((element) {
+        followerUsers.add(FollowerModel.fromJson(element.data()));
+      });
+      emit(GetFollowerUsersSccessState());
+    }).catchError((error) {
+      emit(GetFollowerUsersErrorState(error.toString()));
+    });
+
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(userUid)
+        .collection('Following')
+        .get()
+        .then((value) {
+      followingUsers = [];
+      value.docs.forEach((element) {
+        followingUsers.add(FollowerModel.fromJson(element.data()));
+      });
+      emit(GetFollowDoneUsersSccessState());
+    }).catchError((error) {
+      emit(GetFollowDoneUsersErrorState(error.toString()));
+    });
+  }
+
   List<FollowDoneModel> followDoneModel = [];
 
   void followDone() {
@@ -817,6 +856,28 @@ class AppCubit extends Cubit<AppState> {
         allComment.add(CommentModel.fromJson(element.data()));
       });
       emit(GetCommentSccessState());
+    });
+  }
+
+  // todo: Get Post Users
+  List<PostModel> usersPost = [];
+  void getUsersPosts({
+    required String userUid,
+  }) {
+    emit(GetUsersPostsLoadingState());
+
+    FirebaseFirestore.instance
+        .collection('Post')
+        .where('uid', isEqualTo: userUid)
+        .get()
+        .then((value) {
+      usersPost = [];
+      value.docs.forEach((element) {
+        usersPost.add(PostModel.fromJson(element.data()));
+      });
+      emit(GetUsersPostsSccessState());
+    }).catchError((error) {
+      emit(GetUsersPostsErrorState(error));
     });
   }
 }

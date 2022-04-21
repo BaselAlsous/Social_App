@@ -33,9 +33,13 @@ class UsersScreen extends StatelessWidget {
                         return InkWell(
                           onTap: () {
                             Navigation.navigationAndBack(
-                                context: context,
-                                page: UsersProfileScreen(
-                                    modelUserData: allUser[index]));
+                              context: context,
+                              page: UsersProfileScreen(
+                                  modelUserData: allUser[index],
+                                  index:index,
+                                  ),
+                                 
+                            );
                           },
                           child: Row(
                             children: [
