@@ -22,7 +22,7 @@ class SocialLayout extends StatelessWidget {
         ..getAllUser()
         ..getFollow()
         ..followDone(),
-        child: BlocConsumer<AppCubit, AppState>(
+      child: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {},
         builder: (context, state) {
           var appCubit = AppCubit.get(context);

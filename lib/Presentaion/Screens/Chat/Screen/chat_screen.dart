@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_app/Business/AppCubit/app_cubit.dart';
+import 'package:social_app/Business/CallCubit/call_cubit.dart';
 import 'package:social_app/Data/Constant/AppData/app_data.dart';
 import 'package:social_app/Data/Model/chat_model.dart';
 import 'package:social_app/Data/Model/model_user_data.dart';
@@ -20,8 +21,15 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController textTextEditingController = TextEditingController();
-    return BlocProvider(
-      create: (context) => AppCubit()..getUserData(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AppCubit()..getUserData(),
+        ),
+        BlocProvider(
+          create: (context) => CallCubit(),
+        ),
+      ],
       child: Builder(builder: (context) {
         AppCubit.get(context).getmessage(reseveUid: modelUserData.uid);
         return BlocConsumer<AppCubit, AppState>(
@@ -29,11 +37,36 @@ class ChatScreen extends StatelessWidget {
           builder: (context, state) {
             var appCubit = AppCubit.get(context);
             var chat = appCubit.chat;
+            CallCubit callCubit = CallCubit.get(context);
             return Scaffold(
               appBar: customeAppBarChat(
                 context: context,
                 title: modelUserData.name ?? 'Error',
                 image: '${modelUserData.image}',
+                action: [
+                  IconButton(
+                    onPressed: () {
+                      callCubit.dial(
+                        from: appCubit.userData,
+                        to: modelUserData,
+                        context: context,
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.video_call,
+                      color: Colors.grey,
+                      size: 27.0,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.call,
+                      color: Colors.grey,
+                      size: 27.0,
+                    ),
+                  ),
+                ],
               ),
               body: Padding(
                 padding: EdgeInsets.all(15.0.sp),

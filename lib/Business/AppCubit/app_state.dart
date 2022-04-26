@@ -256,3 +256,4 @@ class CreateNewPostLoadingState extends AppState {}
 class CreateNewPostSccessState extends AppState {}
 
 class CreateNewPostErrorState extends AppState {}
+

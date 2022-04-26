@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, avoid_single_cascade_in_expression_statements, avoid_function_literals_in_foreach_calls
 
 import 'dart:io';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_app/Data/Constant/AppData/app_data.dart';
 import 'package:social_app/Data/Constant/Method/navigation.dart';
+import 'package:social_app/Data/Model/call_model.dart';
 import 'package:social_app/Data/Model/chat_model.dart';
 import 'package:social_app/Data/Model/comment_model.dart';
 import 'package:social_app/Data/Model/follow_done_model.dart';
@@ -15,6 +17,7 @@ import 'package:social_app/Data/Model/follower_model.dart';
 import 'package:social_app/Data/Model/like_model.dart';
 import 'package:social_app/Data/Model/model_post.dart';
 import 'package:social_app/Data/Model/model_user_data.dart';
+import 'package:social_app/Presentaion/Screens/Chat/Screen/CallScreen/video_call_screen.dart';
 import 'package:social_app/Presentaion/Screens/Chat/Screen/chat_room_screen.dart';
 import 'package:social_app/Presentaion/Screens/Home/Screens/home_screen.dart';
 import 'package:social_app/Presentaion/Screens/Post/Screen/post_screen.dart';
@@ -59,6 +62,7 @@ class AppCubit extends Cubit<AppState> {
     }
     if (index == 2) {
       Navigation.navigationAndBack(context: context, page: const PostScreen());
+      getUserData();
     } else {
       defaultIndex = index;
       emit(ToggleBottomNavBarState());
